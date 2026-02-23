@@ -1,0 +1,23 @@
+.sb {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.sb--pending    { color: var(--text-dim);  background: rgba(100,100,130,0.15); border-color: var(--border-2); }
+.sb--accepted   { color: var(--cyan);      background: rgba(6,182,212,0.1);   border-color: rgba(6,182,212,0.3); }
+.sb--in_transit { color: var(--orange);    background: rgba(249,115,22,0.1);  border-color: rgba(249,115,22,0.3); }
+.sb--delivered  { color: var(--green);     background: rgba(16,185,129,0.1);  border-color: rgba(16,185,129,0.3); }
+.sb--cancelled  { color: var(--red);       background: rgba(239,68,68,0.1);   border-color: rgba(239,68,68,0.3); }
+.sb__dot {
+  width: 6px; height: 6px; border-radius: 50%; background: currentColor;
+  animation: online-pulse 2s infinite;
+}

@@ -1,0 +1,108 @@
+.pc {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--muted);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 220ms cubic-bezier(0.4,0,0.2,1);
+  animation: card-in 400ms ease both;
+}
+.pc:hover {
+  border-color: var(--border-2);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+}
+
+.pc__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px dashed var(--border);
+}
+.pc__id-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+.pc__id {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--white);
+  cursor: pointer;
+}
+.pc__copy {
+  font-size: 0.75rem;
+  color: var(--muted);
+  transition: color 200ms;
+}
+
+.pc__body { padding: 16px 20px; }
+
+.pc__route {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.pc__pill {
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pc__dots { color: var(--muted); font-size: 0.6rem; letter-spacing: 2px; }
+.pc__arrow { color: var(--amber); font-weight: 700; }
+
+.pc__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.pc__item-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.pc__item-value {
+  font-size: 0.875rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.pc__distance {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 2px 8px;
+  background: var(--amber-glow);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  color: var(--amber);
+}
+
+.pc__foot {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+  flex-wrap: wrap;
+}

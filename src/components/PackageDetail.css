@@ -1,0 +1,104 @@
+.pd-back {
+  font-size: 0.875rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+.pd-back:hover { color: var(--text); text-decoration: none; }
+.pd-title {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.pd-error {
+  color: var(--red);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+/* Tracker */
+.pd-tracker {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.pd-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+.pd-step__circle {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--border-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-family: var(--mono);
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 6px;
+  transition: all 400ms;
+}
+.pd-step--done .pd-step__circle { color: #000; }
+.pd-step--current .pd-step__circle {
+  animation: pulse-amber 2s infinite;
+  color: #000;
+}
+.pd-step__label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.pd-step--done .pd-step__label,
+.pd-step--current .pd-step__label { color: var(--text); }
+.pd-step__line {
+  flex: 1;
+  height: 2px;
+  min-width: 24px;
+  align-self: flex-start;
+  margin-top: 15px;
+  border-radius: 1px;
+  transition: background 600ms;
+}
+
+/* Info cards */
+.pd-cards {
+  display: grid;
+  gap: 16px;
+}
+.pd-info-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+.pd-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.pd-info-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.pd-info-value {
+  font-size: 0.875rem;
+  color: var(--text);
+  font-weight: 500;
+}

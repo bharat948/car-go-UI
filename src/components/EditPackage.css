@@ -1,0 +1,28 @@
+.ep-page {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 88px 24px 48px;
+}
+.ep-title {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.ep-sub {
+  font-size: 0.875rem;
+  color: var(--text-dim);
+}
+.ep-sep {
+  height: 1px;
+  background: var(--border);
+  margin: 24px 0;
+}
+.ep-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--amber);
+  border-radius: 16px;
+  padding: 32px;
+}

@@ -1,0 +1,51 @@
+.nf {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 24px;
+  overflow: hidden;
+}
+.nf__grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle, var(--border) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.4;
+  pointer-events: none;
+}
+.nf__code {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: clamp(6rem, 20vw, 12rem);
+  color: transparent;
+  -webkit-text-stroke: 2px var(--border-2);
+  line-height: 1;
+  animation: gentle-sway 4s ease-in-out infinite alternate;
+  user-select: none;
+}
+.nf__card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 32px;
+  text-align: center;
+  max-width: 400px;
+  margin-top: -24px;
+  z-index: 1;
+}
+.nf__label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  margin-bottom: 6px;
+}
+.nf__text {
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 16px;
+}
