@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import axiosInstance from '../api/axiosInstance';
 import { useUser } from '../contexts/UserContext';
+import LocationAutocomplete from './LocationAutocomplete';
 import './CreatePackage.css';
 
 const CreatePackage = () => {
@@ -81,7 +82,16 @@ const CreatePackage = () => {
             <div className="t-group">
               <label className="t-label"><span className="arrow">→</span> PICKUP LOCATION</label>
               <div className={`t-input-wrap${focused.pickupLocation ? ' focused' : ''}`}>
-                <input className={`t-input${errors.pickupLocation ? ' has-error' : ''}`} name="pickupLocation" placeholder="e.g. Chennai" value={form.pickupLocation} onChange={handleChange} onBlur={handleBlur} onFocus={handleFocus} />
+                <LocationAutocomplete
+                  name="pickupLocation"
+                  value={form.pickupLocation}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  onFocus={handleFocus}
+                  placeholder="Type and pick a place, or enter your own text"
+                  error={errors.pickupLocation}
+                  inputClassName={`t-input${errors.pickupLocation ? ' has-error' : ''}`}
+                />
               </div>
               {errors.pickupLocation && <p className="t-error">{errors.pickupLocation}</p>}
             </div>
@@ -89,7 +99,16 @@ const CreatePackage = () => {
             <div className="t-group">
               <label className="t-label"><span className="arrow">→</span> DESTINATION</label>
               <div className={`t-input-wrap${focused.destination ? ' focused' : ''}`}>
-                <input className={`t-input${errors.destination ? ' has-error' : ''}`} name="destination" placeholder="e.g. Indore" value={form.destination} onChange={handleChange} onBlur={handleBlur} onFocus={handleFocus} />
+                <LocationAutocomplete
+                  name="destination"
+                  value={form.destination}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  onFocus={handleFocus}
+                  placeholder="Type and pick a place, or enter your own text"
+                  error={errors.destination}
+                  inputClassName={`t-input${errors.destination ? ' has-error' : ''}`}
+                />
               </div>
               {errors.destination && <p className="t-error">{errors.destination}</p>}
             </div>
