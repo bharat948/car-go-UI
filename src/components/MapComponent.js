@@ -6,11 +6,13 @@ import { io } from 'socket.io-client';
 import axiosInstance from '../api/axiosInstance';
 import StatusBadge from './StatusBadge';
 import { createRasterBasemapStyleFromEnv } from '../maps/rasterBasemapStyle';
+import { minDistanceMetersPointToPolyline } from '../utils/geoRouteDeviation';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './MapComponent.css';
 
 const center = { lat: 7.2905715, lng: 80.6337262 };
 const DRIVER_STALE_MS = 15000;
+const ROUTE_NEAR_THRESHOLD_M = 200;
 const SOCKET_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 const OSRM_BASE_URL = 'https://router.project-osrm.org/route/v1/driving';
 
@@ -240,6 +242,25 @@ const MapComponent = () => {
     return () => controller.abort();
   }, [activePackage, activePickupCoords, activeDestinationCoords, activeDriver]);
 
+  const routeDeviationMeta = useMemo(() => {
+    if (!activeDriver || !routeState.legs?.length) return null;
+    const lat = Number(activeDriver.lat);
+    const lng = Number(activeDriver.lng);
+    if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null;
+
+    let minM = Infinity;
+    for (const leg of routeState.legs) {
+      const coords = leg?.geometry?.coordinates;
+      const d = minDistanceMetersPointToPolyline(lat, lng, coords);
+      if (d < minM) minM = d;
+    }
+    if (!Number.isFinite(minM)) return null;
+    return {
+      meters: minM,
+      nearRoute: minM <= ROUTE_NEAR_THRESHOLD_M,
+    };
+  }, [activeDriver, routeState.legs]);
+
   const driverMeta = useMemo(() => {
     const totals = { online: 0, stale: 0, offline: 0 };
     drivers.forEach((driver) => {
@@ -296,6 +317,14 @@ const MapComponent = () => {
                   style={{ width: `${navProgressByStatus(activePackage.status)}%` }}
                 />
               </div>
+              {routeDeviationMeta && (
+                <p
+                  className={`map-nav-route-deviation map-nav-route-deviation--${routeDeviationMeta.nearRoute ? 'near' : 'far'}`}
+                >
+                  Driver vs route: ~{Math.round(routeDeviationMeta.meters)} m (
+                  {routeDeviationMeta.nearRoute ? 'near plotted route' : 'possibly off route'})
+                </p>
+              )}
               <p className="map-nav-panel__hint">
                 Progress reflects package status only (MVP).
               </p>

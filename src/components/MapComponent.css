@@ -151,6 +151,17 @@
   color: var(--red);
   font-size: 0.8rem;
 }
+.map-nav-route-deviation {
+  margin-top: 8px;
+  font-size: 0.74rem;
+  color: var(--text-dim);
+}
+.map-nav-route-deviation--near {
+  color: var(--muted-green, #87c591);
+}
+.map-nav-route-deviation--far {
+  color: var(--amber, #eab308);
+}
 .map-nav-progress {
   margin-top: 10px;
   width: 100%;

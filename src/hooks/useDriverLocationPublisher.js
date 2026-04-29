@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 import axiosInstance from '../api/axiosInstance';
+import { buildDriverLocationPayload } from '../utils/driverTelemetryPayload';
 
 const SOCKET_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 const PUBLISH_INTERVAL_MS = 10000;
@@ -74,12 +75,7 @@ const useDriverLocationPublisher = ({ enabled, isCourier }) => {
         async (position) => {
           if (isUnmounted || haltedRef.current) return;
 
-          const payload = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-            timestamp: new Date().toISOString(),
-            isOnline: true,
-          };
+          const payload = buildDriverLocationPayload(position);
 
           let didPublishSucceed = false;
           try {
