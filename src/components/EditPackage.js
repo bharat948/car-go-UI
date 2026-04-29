@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import axiosInstance from '../api/axiosInstance';
 import LoadingSpinner from './LoadingSpinner';
+import LocationAutocomplete from './LocationAutocomplete';
 import './EditPackage.css';
 
 const EditPackage = () => {
@@ -97,7 +98,16 @@ const EditPackage = () => {
           <div className="t-group">
             <label className="t-label"><span className="arrow">→</span> PICKUP LOCATION</label>
             <div className={`t-input-wrap${focused.pickupLocation ? ' focused' : ''}`}>
-              <input className={`t-input${errors.pickupLocation ? ' has-error' : ''}`} name="pickupLocation" value={form.pickupLocation} onChange={handleChange} onBlur={handleBlur} onFocus={handleFocus} />
+              <LocationAutocomplete
+                name="pickupLocation"
+                value={form.pickupLocation}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+                placeholder="Search or type address"
+                error={errors.pickupLocation}
+                inputClassName={`t-input${errors.pickupLocation ? ' has-error' : ''}`}
+              />
             </div>
             {errors.pickupLocation && <p className="t-error">{errors.pickupLocation}</p>}
           </div>
@@ -105,7 +115,16 @@ const EditPackage = () => {
           <div className="t-group">
             <label className="t-label"><span className="arrow">→</span> DESTINATION</label>
             <div className={`t-input-wrap${focused.destination ? ' focused' : ''}`}>
-              <input className={`t-input${errors.destination ? ' has-error' : ''}`} name="destination" value={form.destination} onChange={handleChange} onBlur={handleBlur} onFocus={handleFocus} />
+              <LocationAutocomplete
+                name="destination"
+                value={form.destination}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+                placeholder="Search or type address"
+                error={errors.destination}
+                inputClassName={`t-input${errors.destination ? ' has-error' : ''}`}
+              />
             </div>
             {errors.destination && <p className="t-error">{errors.destination}</p>}
           </div>

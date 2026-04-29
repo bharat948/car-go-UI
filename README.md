@@ -1,14 +1,27 @@
 # package-map
 
-React frontend for the delivery app: map (Leaflet/Mapbox), package create/edit, auth (register/login), my packages, and nearby packages. Talks to the **package-delivery** API on port 4000.
+React frontend for the delivery app: map (**MapLibre** + `react-map-gl`), package create/edit, auth (register/login), my packages, and nearby packages. Talks to the **package-delivery** API on port 4000.
 
 ## Stack
 
 - **React 18** (Create React App)
 - **React Router** v6
-- **Leaflet** / **react-leaflet** / **mapbox-gl** / **react-map-gl**
+- **maplibre-gl** + **react-map-gl** — map view (raster XYZ tiles; no Mapbox token)
+- **Leaflet** / **react-leaflet** — optional/legacy components elsewhere
 - **Axios** – API client
 - **use-places-autocomplete** – Address search
+
+## Environment variables
+
+Copy `.env.example` to `.env` in this folder and adjust:
+
+| Variable | Purpose |
+|----------|---------|
+| `REACT_APP_API_URL` | Backend base URL (e.g. `http://localhost:4000`) |
+| `REACT_APP_MAP_RASTER_TILES` | Optional. Comma-separated raster tile URL templates with `{z}`, `{x}`, `{y}`. If unset, defaults to a public OSM tile URL for local development. **Production:** use your own tile host and follow that provider’s usage policy. |
+| `REACT_APP_MAP_RASTER_ATTRIBUTION` | Optional. HTML attribution string for the map. |
+
+You do **not** need `REACT_APP_MAPBOX_TOKEN` for the main map view after the MapLibre migration.
 
 ## Routes
 
@@ -26,9 +39,7 @@ React frontend for the delivery app: map (Leaflet/Mapbox), package create/edit, 
 ## Prerequisites
 
 - Node.js (v14+)
-- **package-delivery** backend running (see `../package-delivery/README.md`):
-  - json-server on **port 5000**
-  - API server on **port 4000**
+- **Backend** running (see `../car-go-server/README.md`): API server on **port 4000**
 
 ## Run
 
@@ -50,7 +61,7 @@ App: http://localhost:3000
 
 ## API
 
-All API calls go to `http://localhost:4000`:
+All API calls go to `REACT_APP_API_URL` or `http://localhost:4000` when unset:
 
 - Auth: `POST /user/register`, `POST /user/login`, `POST /user/logout`
 - Packages: `GET/POST /api/packages`, `GET /api/my-packages`, `PUT /api/packages/:id`, `POST /api/packages/near-me`

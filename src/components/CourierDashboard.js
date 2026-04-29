@@ -3,13 +3,24 @@ import toast from 'react-hot-toast';
 import axiosInstance from '../api/axiosInstance';
 import PackageCard from './PackageCard';
 import LoadingSpinner from './LoadingSpinner';
+import useDriverLocationPublisher from '../hooks/useDriverLocationPublisher';
+import { useUser } from '../contexts/UserContext';
 import './CourierDashboard.css';
 
+const normalizeDeliveryStatus = (status) => (status || 'pending').toLowerCase();
+
 const CourierDashboard = () => {
+  const { user } = useUser();
   const [available, setAvailable] = useState([]);
   const [myDeliveries, setMyDeliveries] = useState([]);
   const [loading, setLoading] = useState(true);
   const myDeliveriesRef = useRef(null);
+  const isCourier = user?.role === 'courier';
+  const hasActiveDelivery = myDeliveries.some((pkg) => ['accepted', 'in_transit'].includes(normalizeDeliveryStatus(pkg.status)));
+  const { publishing, lastPublishAt } = useDriverLocationPublisher({
+    enabled: hasActiveDelivery,
+    isCourier,
+  });
 
   const fetchAvailable = async () => {
     try {
@@ -83,6 +94,10 @@ const CourierDashboard = () => {
             <span className="cd-online__text">ONLINE</span>
           </div>
           <h2 className="cd-title">Courier Dashboard</h2>
+          <p className="cd-summary muted mono" style={{ marginTop: 8 }}>
+            Location feed: {publishing ? 'publishing' : 'idle'}
+            {lastPublishAt ? ` · last ${new Date(lastPublishAt).toLocaleTimeString()}` : ''}
+          </p>
         </div>
         <p className="cd-summary muted mono">{myDeliveries.length} jobs accepted · {deliveredCount} delivered</p>
       </div>
